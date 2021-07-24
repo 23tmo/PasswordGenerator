@@ -15,22 +15,22 @@ public class SettingMethods {
             possibleChars.add(Character.toString(character)); // casts char int to string, inserts in arrayList
         }
 
-        // if can have letters (and more specifically upper/lower)
-        if (Password.hasLetters()){
-            System.out.println("Still has letters");
-            if (Password.hasUpperCase()){
-                System.out.println("Still has uppercase");
-                int randInt = (int) Math.floor(Math.random()*(90-65+1)+65);
-                char character = (char)(randInt);
-                possibleChars.add(Character.toString(character));
-            }
-            if (Password.hasLowerCase()){
-                System.out.println("Still has lowercase");
-                int randInt = (int) Math.floor(Math.random()*(122-97+1)+97);
-                char character = (char)(randInt);
-                possibleChars.add(Character.toString(character));
-            }
+        // if can have upper/lower
+        System.out.println("Still has letters");
+        if (Password.hasUpperCase()){
+            System.out.println("Still has uppercase");
+            int randInt = (int) Math.floor(Math.random()*(90-65+1)+65);
+            char character = (char)(randInt);
+            possibleChars.add(Character.toString(character));
         }
+
+        if (Password.hasLowerCase()){
+            System.out.println("Still has lowercase");
+            int randInt = (int) Math.floor(Math.random()*(122-97+1)+97);
+            char character = (char)(randInt);
+            possibleChars.add(Character.toString(character));
+        }
+
 
         // if can have symbols
         if (Password.hasSymbols()){

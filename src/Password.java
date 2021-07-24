@@ -2,15 +2,13 @@ public class Password {
     private static int length;
     private static boolean numbers;
     private static boolean symbols;
-    private static boolean letters;
     private static boolean uppercase;
     private static boolean lowercase;
 
-    public Password(int length, boolean numbers, boolean symbols, boolean letters, boolean uppercase, boolean lowercase){
+    public Password(int length, boolean numbers, boolean symbols, boolean uppercase, boolean lowercase){
         this.length = length;
         this.numbers = numbers;
         this.symbols = symbols;
-        this.letters = letters;
         this.uppercase = uppercase;
         this.lowercase = lowercase;
     }
@@ -29,10 +27,6 @@ public class Password {
 
     public static boolean hasSymbols(){
         return symbols;
-    }
-
-    public static boolean hasLetters(){
-        return letters;
     }
 
     public static boolean hasUpperCase(){

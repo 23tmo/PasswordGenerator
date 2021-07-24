@@ -1,4 +1,7 @@
 import processing.core.PApplet;
+import processing.core.PFont;
+import processing.core.PImage;
+
 import java.awt.*;
 import java.awt.datatransfer.*;
 
@@ -9,6 +12,11 @@ public class PasswordGeneratorApp extends PApplet{
     String msg=INIT_MSG; // input message from user
     private int length = 12;
     private String currentPassword = "";
+    PFont mono;
+    PImage copy;
+    PImage generate;
+
+
 
     public static void main(String[] args){ // creates new PasswordGeneratorApp object and runs program
         app = new PasswordGeneratorApp();
@@ -17,41 +25,59 @@ public class PasswordGeneratorApp extends PApplet{
     public PasswordGeneratorApp(){} // constructor
 
     public void settings(){
-        size(1440, 872); // size of canvas
+        size(1067, 589); // size of canvas
     }
 
     public void setup(){
         fill(0);
+        mono = createFont("MuktaMahee-ExtraBold", 32);
+        copy = loadImage("copy.png");
+        generate = loadImage("generate.png");
     }
 
     public void draw(){
-        Password password = new Password(length, true, true, true, true, true);
-        background(255);
+        Password password = new Password(length, true, true, true, true);
+        background(28,28,28);
+        textFont(mono);
+        int x = 2;
+        int y = x+1;
 
         // generate button
-        fill(0);
-        strokeWeight(5);
         fill(255);
+        strokeWeight(5);
+        fill(28,28,28);
         rect(200, 300, 150, 60);
-        fill(0);
+        fill(255);
         textSize(12);
         textAlign(CENTER, CENTER);
         text("generate password", 275, 325);
 
         // user input
-        fill(0);
-        text(msg, 100, 100);
+        fill(255);
+        text(msg, width/2, height/2 - 100);
 
         // password
         fill(255, 0, 0);
         textSize(20);
         text(currentPassword, width/2, height/2);
 
-        // copy to clipboard
-        fill(0, 0, 255);
-        rect(600, 700, 150, 60);
+        // title yellow
+        fill(230,234,81); //yellow
+        textSize(65);
+        textAlign(CENTER);
+        text("PASSWORD   GENERATOR.", width/2, 80);
 
+        // title pink
+        fill(216,89,244); //pink
+        text("PASSWORD   GENERATOR.", width/2-x, 80-y);
 
+        // title blue
+        fill(69,171,225); //blue
+        text("PASSWORD   GENERATOR.", width/2-2*x, 80-2*y);
+
+        //copy/generate cake
+        copy.resize(0, 200);
+        image(copy, 825, height/2-125);
 
     }
     public void mouseClicked() {
@@ -65,8 +91,9 @@ public class PasswordGeneratorApp extends PApplet{
             currentPassword = SettingMethods.generatePassword();
         }
 
-        if (x > 600 && x < (600 + 150) &&
-                y > 700 && y < (700 + 60)){
+        //copy cake
+        if (x > 825 && x < (825 + 220) &&
+                y > height/2-125 && y < (height/2-125 + 200)){
             copyToClipboard(currentPassword);
         }
     }
