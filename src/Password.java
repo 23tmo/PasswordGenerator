@@ -45,4 +45,8 @@ public class Password {
         return lowercase;
     }
 
+    public static void setHasNumbers(boolean input){
+        numbers = input;
+    }
+
 }
