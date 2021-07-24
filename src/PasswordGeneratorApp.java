@@ -1,4 +1,7 @@
 import processing.core.PApplet;
+import java.awt.*;
+import java.awt.datatransfer.*;
+
 
 public class PasswordGeneratorApp extends PApplet{
     private static PasswordGeneratorApp app;
@@ -14,7 +17,7 @@ public class PasswordGeneratorApp extends PApplet{
     public PasswordGeneratorApp(){} // constructor
 
     public void settings(){
-        size(600, 500); // size of canvas
+        size(1440, 872); // size of canvas
     }
 
     public void setup(){
@@ -22,7 +25,7 @@ public class PasswordGeneratorApp extends PApplet{
     }
 
     public void draw(){
-        Password password = new Password(length, false, true, false, false, false);
+        Password password = new Password(length, true, true, true, true, true);
         background(255);
 
         // generate button
@@ -44,6 +47,11 @@ public class PasswordGeneratorApp extends PApplet{
         textSize(20);
         text(currentPassword, width/2, height/2);
 
+        // copy to clipboard
+        fill(0, 0, 255);
+        rect(600, 700, 150, 60);
+
+
 
     }
     public void mouseClicked() {
@@ -55,6 +63,11 @@ public class PasswordGeneratorApp extends PApplet{
         if (x > 200 && x < (200 + 150) &&
                 y > 300 && y < (300 + 60)){
             currentPassword = SettingMethods.generatePassword();
+        }
+
+        if (x > 600 && x < (600 + 150) &&
+                y > 700 && y < (700 + 60)){
+            copyToClipboard(currentPassword);
         }
     }
 
@@ -79,5 +92,11 @@ public class PasswordGeneratorApp extends PApplet{
 
     public String getMsg(){
         return msg;
+    }
+
+    public void copyToClipboard(String stringToCopy){
+        StringSelection selection = new StringSelection(stringToCopy);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);
     }
 }
