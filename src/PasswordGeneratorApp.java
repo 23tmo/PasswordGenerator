@@ -5,22 +5,15 @@ import processing.core.PImage;
 import java.awt.*;
 import java.awt.datatransfer.*;
 
-
 public class PasswordGeneratorApp extends PApplet{
-    private static PasswordGeneratorApp app;
     final String INIT_MSG="Type length here.";
     String msg=INIT_MSG; // input message from user
     private int length = 20;
-    private String currentPassword = "";
     private int counter = 0;
     private int numbersCounter = 0;
     private int lowerCounter = 0;
-    PFont mukta;
-    PFont mono;
-    PImage copy;
-    PImage generate;
-    PImage copied;
-    PImage copyImg;
+    private int symbolsCounter = 0;
+    private int upperCounter = 0;
     private int rNum = 28;
     private int gNum = 28;
     private int bNum = 28;
@@ -37,13 +30,19 @@ public class PasswordGeneratorApp extends PApplet{
     private boolean hasSymbols = false;
     private boolean hasLowercase = false;
     private boolean hasUppercase = false;
-    private int symbolsCounter = 0;
-    private int upperCounter = 0;
+    private String currentPassword = "";
+    PFont mukta;
+    PFont mono;
+    PImage copy;
+    PImage generate;
+    PImage copied;
+    PImage copyImg;
 
     public static void main(String[] args){ // creates new PasswordGeneratorApp object and runs program
-        app = new PasswordGeneratorApp();
+        PasswordGeneratorApp app = new PasswordGeneratorApp();
         app.runSketch();
     }
+
     public PasswordGeneratorApp(){} // constructor
 
     public void settings(){
@@ -51,41 +50,40 @@ public class PasswordGeneratorApp extends PApplet{
     }
 
     public void setup(){
-        fill(0);
         mukta = createFont("MuktaMahee-ExtraBold", 32);
         mono = createFont("RobotoMono-Bold", 20);
         copy = loadImage("copy.png");
         generate = loadImage("generate.png");
         copied = loadImage("copied.png");
-        copyImg = copy;
+        copyImg = copy; // default color of copycake = pink copy
     }
 
     public void draw(){
         Password password = new Password(length, hasNumbers, hasSymbols, hasUppercase, hasLowercase);
         background(28,28,28);
         textFont(mukta);
-        int x = 2;
+        int x = 2; // help offset x and y cords of each title
         int y = x+1;
 
-        // password
+        // displayed password
         textFont(mono);
         fill(249,235,48,255); //yellow
         textSize(20);
         textAlign(LEFT);
-        text(currentPassword, 50, height/2+30);
+        text(currentPassword, 50, (height / 2) + 30);
 
-        // title yellow
-        fill(230,234,81); //yellow
+        // yellow title
+        fill(230,234,81); // yellow
         textSize(65);
         textAlign(CENTER);
         text("PASSWORD GENERATOR.", width/2, 80);
 
-        // title pink
-        fill(216,89,244); //pink
+        // pink title
+        fill(216,89,244); // pink
         text("PASSWORD GENERATOR.", width/2-x, 80-y);
 
-        // title blue
-        fill(69,171,225); //blue
+        // blue title
+        fill(69,171,225); // blue
         text("PASSWORD GENERATOR.", width/2-2*x, 80-2*y);
 
         // generate cake
@@ -106,21 +104,24 @@ public class PasswordGeneratorApp extends PApplet{
         //w: 220 h:200
         //x: 825 y: height/2 - 125
 
-        int lineHeight = (height/2)+110;
-        //lines
+        int lineHeight = (height/2)+110; // height of line
+
+        // blue line
         strokeWeight(8);
         stroke(69,171,225);//blue
         line(0, lineHeight, 1067, lineHeight);
 
+        // pink line
         strokeWeight(8);
         stroke(216,89,244); //pink
         line(0, lineHeight-5, 1067, lineHeight-5);
 
+        // yellow line
         strokeWeight(8);
         stroke(230,234,81); //yellow
         line(0, lineHeight-10, 1067, lineHeight-10);
 
-        // must contain
+        // must contain" text
         fill(249,235,48,255);
         textSize(27);
         text("must contain:", 135, lineHeight+45);
@@ -174,10 +175,10 @@ public class PasswordGeneratorApp extends PApplet{
     }
     public void mouseClicked() {
         handleMouseClicked(mouseX, mouseY);
-        msg=INIT_MSG;  //Reset message, prepare for a new message
+        msg=INIT_MSG;  // Reset message, prepare for a new message
     }
 
-    public void copyOrCopied(){
+    public void copyOrCopied(){ // even/odd counter to change display of copy cake
         counter++;
         if(counter % 2 == 0){
             copyImg = copied;
@@ -185,10 +186,11 @@ public class PasswordGeneratorApp extends PApplet{
         else{
             copyImg = copy;
         }
-
     }
+
     public void handleMouseClicked(int x, int y){
-        //copy cake
+
+        // copy cake
         if (x > 825 && x < (825 + 220) &&
                 y > height/2-125 && y < (height/2-125 + 200)){
             copyToClipboard(currentPassword);
@@ -271,11 +273,13 @@ public class PasswordGeneratorApp extends PApplet{
                 bUpper = 28;
             }
         }
-
-        //if (x > XPOS && x < (XPOS + WIDTH) &&
-        //    y > YPOS && y < (YPOS + HEIGHT)){
-        //    copyToClipboard(currentPassword);
-        //}
+        // button template
+        /*
+            if (x > XPOS && x < (XPOS + WIDTH) &&
+                y > YPOS && y < (YPOS + HEIGHT)){
+                function();
+            }
+        */
     }
 
     public void keyPressed() {
@@ -293,12 +297,7 @@ public class PasswordGeneratorApp extends PApplet{
 
         if (key == ENTER){
             length = Integer.parseInt(msg); // converting input msg to length
-            System.out.println(length);
         }
-    }
-
-    public String getMsg(){
-        return msg;
     }
 
     public void copyToClipboard(String stringToCopy){

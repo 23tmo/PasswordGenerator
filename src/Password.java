@@ -17,10 +17,6 @@ public class Password {
         return length;
     }
 
-    public void setLength(int input){
-        length = input;
-    }
-
     public static boolean hasNumbers(){
         return numbers;
     }
@@ -36,17 +32,4 @@ public class Password {
     public static boolean hasLowerCase(){
         return lowercase;
     }
-
-    public boolean hasUppercase(){
-        return uppercase;
-    }
-
-    public boolean hasLowercase(){
-        return lowercase;
-    }
-
-    public static void setHasNumbers(boolean input){
-        numbers = input;
-    }
-
 }
